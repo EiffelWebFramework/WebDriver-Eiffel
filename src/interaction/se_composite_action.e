@@ -17,10 +17,11 @@ create
 feature {NONE} -- Initialization
 
 	make
+			-- Create an empty composite actions
 		do
 			create {ARRAYED_LIST[SE_ACTION]}actions.make (5)
 		ensure
-			actions_empty: actions.is_empty
+			actions_empty: is_empty
 		end
 
 feature -- Execute
@@ -33,8 +34,17 @@ feature -- Execute
 feature -- Access
 
 	count: INTEGER
+			-- Number of items
 		do
 			Result := actions.count
+		end
+
+feature -- Status report
+
+	is_empty: BOOLEAN
+			-- Is the current list of actions empty?
+		do
+			Result := actions.is_empty
 		end
 
 feature -- Change Element

@@ -22,61 +22,74 @@ feature {NONE} -- Initialization
 
 feature  -- Mouse Actions
 
-	click (a_coordinates: SE_COORDINATES)
+	click (a_coordinates: detachable SE_COORDINATES)
 		do
+			move_if_needed (a_coordinates)
+			if attached driver.session as l_session then
+				driver.api.click (l_session.session_id, create {SE_BUTTON}.make_left)
+			end
 		end
 
-	double_click (a_coordinates: SE_COORDINATES)
+	double_click (a_coordinates: detachable SE_COORDINATES)
 		do
-
+			move_if_needed (a_coordinates)
+			if attached driver.session as l_session then
+				driver.api.double_click (l_session.session_id)
+			end
 		end
 
-	mouse_down (a_coordinates: SE_COORDINATES)
+	mouse_down (a_coordinates: detachable SE_COORDINATES)
 		do
-
+			move_if_needed (a_coordinates)
+			if attached driver.session as l_session then
+				driver.api.button_down (l_session.session_id, create {SE_BUTTON}.make_left)
+			end
 		end
 
 
-	mouse_up (a_coordinates: SE_COORDINATES)
+	mouse_up (a_coordinates: detachable SE_COORDINATES)
 		do
-
+			move_if_needed (a_coordinates)
+			if attached driver.session as l_session then
+				driver.api.button_up (l_session.session_id, create {SE_BUTTON}.make_left)
+			end
 		end
 
 	mouse_move (a_coordinates: SE_COORDINATES)
 		do
-
+			if attached driver.session as l_session and then attached a_coordinates.auxiliary as l_element then
+				driver.api.move_to_default (l_session.session_id,l_element)
+			end
 		end
 
 	mouse_move_by_params (a_coordinates: SE_COORDINATES; a_param1: INTEGER_64; a_param2: INTEGER_64)
 		do
-
+			if attached driver.session as l_session and then attached a_coordinates.auxiliary as l_element then
+				driver.api.move_to (l_session.session_id,l_element,a_param1, a_param2)
+			end
 		end
 
-	context_click (a_coordinates: SE_COORDINATES)
+	context_click (a_coordinates: detachable  SE_COORDINATES)
+			-- Right click an element
 		do
-
+			move_if_needed (a_coordinates)
+			if attached driver.session as l_session then
+				driver.api.click (l_session.session_id, create {SE_BUTTON}.make_right)
+			end
 		end
 
 
 
 feature {NONE} -- Implementation
 
-
-	params_from_coordinates (a_where: SE_COORDINATES): HASH_TABLE[ANY,STRING]
+	move_if_needed (a_coordinates: detachable SE_COORDINATES)
 		do
-			create Result.make(1)
-			if attached {STRING} a_where.auxiliary as l_id then
-				Result.force (l_id,"element")
+			if attached a_coordinates as l_coordinates then
+				mouse_move (a_coordinates)
 			end
 		end
-
-
 
 	driver : WEB_DRIVER
 		-- web_driver
 
-	json_template : String = "[
-				{"value" :"$value",
-				"isdown" : $boolean}
-			]"
 end

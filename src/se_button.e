@@ -6,7 +6,9 @@ note
 
 class
 	SE_BUTTON
+
 inherit {NONE}
+
 	ENUM
 
 
@@ -21,16 +23,22 @@ feature -- Initialization
 	make_left
 		do
 			set_left
+		ensure
+			left_set: is_left
 		end
 
 	make_middle
 		do
 			set_middle
+		ensure
+			middle_set: is_middle
 		end
 
 	make_right
 		do
 			set_right
+		ensure
+			right_set: is_right
 		end
 
 
@@ -85,6 +93,7 @@ feature -- Query
 
 
 feature  {NONE} -- Implementation
+
 --	{LEFT = 0, MIDDLE = 1 , RIGHT = 2}
 	left_value :INTEGER = 0
 	middle_value : INTEGER = 1

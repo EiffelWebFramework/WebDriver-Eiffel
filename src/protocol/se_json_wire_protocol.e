@@ -1704,7 +1704,7 @@ feature -- Commands
 			end
 		end
 
-	move_to (a_session_id: STRING_32; web_element : WEB_ELEMENT; xoffset : NATURAL; yoffset:NATURAL)
+	move_to (a_session_id: STRING_32; web_element : WEB_ELEMENT; xoffset : INTEGER_64; yoffset:INTEGER_64)
 			--	POST /session/:sessionId/moveto
 			--	Move the mouse by an offset of the specificed element.
 			--  If no element is specified, the move is relative to the current mouse cursor.
@@ -1731,6 +1731,34 @@ feature -- Commands
 				l_json.replace_substring_all ("$element", web_element.element)
 				l_json.replace_substring_all ("$yoffset", yoffset.out)
 				l_json.replace_substring_all ("$xoffset", xoffset.out)
+				resp := commnad_executor.move_to (a_session_id, l_json)
+				check_response (resp)
+			end
+		end
+
+	move_to_default (a_session_id: STRING_32; web_element : WEB_ELEMENT)
+			--	POST /session/:sessionId/moveto
+			--	Move the mouse by an offset of the specificed element.
+			--  If no element is specified, the move is relative to the current mouse cursor.
+			--  If an element is provided but no offset, the mouse will be moved to the center of the element.
+			--  If the element is not visible, it will be scrolled into view.
+			--	URL Parameters:
+			--		:sessionId - ID of the session to route the command to.
+			--	JSON Parameters:
+			--		element - {string} Opaque ID assigned to the element to move to, as described in the WebElement JSON Object. If not specified or is null, the offset is relative to current position of the mouse.
+			--		xoffset - {number} X offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
+			--		yoffset - {number} Y offset to move to, relative to the top-left corner of the element. If not specified, the mouse will move to the middle of the element.
+		local
+			resp : SE_RESPONSE
+			l_json : STRING_32
+
+		do
+			l_json := "[
+				{ "element" : "$element"
+				}
+			]"
+			if commnad_executor.is_available then
+				l_json.replace_substring_all ("$element", web_element.element)
 				resp := commnad_executor.move_to (a_session_id, l_json)
 				check_response (resp)
 			end
@@ -1823,6 +1851,7 @@ feature -- Commands
 				check_response (resp)
 			end
 		end
+
 	double_click (a_session_id: STRING_32)
 			--	POST /session/:sessionId/doubleclick
 			--	Double-clicks at the current mouse coordinates (set by moveto).

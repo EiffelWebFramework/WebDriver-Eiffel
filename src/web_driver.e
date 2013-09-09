@@ -476,7 +476,19 @@ feature {WEB_DRIVER, WEB_DRIVER_WAIT}
 			end
 		end
 
-feature {SE_KEYBOARD, SE_COORDINATES} -- Implementation
+feature -- Input Devices
+
+	keyboard: SE_KEYBOARD
+		do
+			create Result.make (Current)
+		end
+
+	mouse: SE_MOUSE
+		do
+			create Result.make (Current)
+		end
+
+feature {SE_KEYBOARD, SE_COORDINATES, SE_MOUSE} -- Implementation
 
 	session: detachable SE_SESSION
 
