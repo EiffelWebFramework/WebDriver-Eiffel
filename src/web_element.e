@@ -8,26 +8,33 @@ class
 	WEB_ELEMENT
 create
 		make
-feature
-		make ( an_element : STRING_32 ; an_api : like api; a_session_id : STRING_32)
+feature {NONE} -- Implementations
+		make ( a_element : STRING_32 ; a_api : like api; a_session_id : STRING_32)
 			do
-				set_element (an_element)
-				api := an_api
+				set_element (a_element)
+				api := a_api
 				session_id := a_session_id
+			ensure
+				element_set: element = a_element
+				api_set: api = a_api
+				session_id_set: session_id = a_session_id
 			end
 
 feature -- Access
+
 	element : STRING_32
 		--The opaque ID assigned to the element by the server.
 		--This ID should be used in all subsequent commands issued against the element.
 
 feature -- Change Element
+
 	set_element (an_element : STRING_32)
 		do
 			element := an_element
 		end
 
 feature -- Web Element API
+
 	clear
 		-- Clear a TEXTAREA or text INPUT element's value.
 		do

@@ -9,7 +9,9 @@ class
 
 create
 	make
+
 feature {NONE} -- Initialization
+
 	make ( a_web_driver : like driver)
 			-- Create an object se_keyboard with his driver
 		do
@@ -19,6 +21,7 @@ feature {NONE} -- Initialization
 		end
 
 feature --Access
+
 	send_keys  (keys : ARRAY[STRING_32])
 		do
 			if attached driver.active_element as l_active_element then
@@ -50,9 +53,8 @@ feature --Access
 			end
 		end
 
-
-
 feature {NONE} -- Implementation
+
 	driver : WEB_DRIVER
 		-- web_driver
 

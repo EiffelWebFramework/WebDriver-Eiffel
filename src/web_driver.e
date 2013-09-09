@@ -476,7 +476,7 @@ feature {WEB_DRIVER, WEB_DRIVER_WAIT}
 			end
 		end
 
-feature {SE_KEYBOARD} -- Implementation
+feature {SE_KEYBOARD, SE_COORDINATES} -- Implementation
 
 	session: detachable SE_SESSION
 
