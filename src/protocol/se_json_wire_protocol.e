@@ -1704,7 +1704,7 @@ feature -- Commands
 			end
 		end
 
-	move_to (a_session_id: STRING_32; web_element : WEB_ELEMENT; xoffset : INTEGER_64; yoffset:INTEGER_64)
+	move_to (a_session_id: STRING_32; a_web_element : detachable WEB_ELEMENT; xoffset : INTEGER_64; yoffset:INTEGER_64)
 			--	POST /session/:sessionId/moveto
 			--	Move the mouse by an offset of the specificed element.
 			--  If no element is specified, the move is relative to the current mouse cursor.
@@ -1722,13 +1722,24 @@ feature -- Commands
 
 		do
 			l_json := "[
-				{ "element" : "$element",
-				  "yoffset" : $yoffset,
-				  "xoffset" : $xoffset	
-				}
-			]"
+					{ "yoffset" : $yoffset,
+					  "xoffset" : $xoffset
+					}
+				]"
+
+			if attached a_web_element as l_web_element then
+				l_json := "[
+						{ "element" : "$element",
+						  "yoffset" : $yoffset,
+						  "xoffset" : $xoffset	
+						}
+					]"
+			end
+				
 			if commnad_executor.is_available then
-				l_json.replace_substring_all ("$element", web_element.element)
+				if attached a_web_element as l_web_element  then
+					l_json.replace_substring_all ("$element", l_web_element.element)
+				end
 				l_json.replace_substring_all ("$yoffset", yoffset.out)
 				l_json.replace_substring_all ("$xoffset", xoffset.out)
 				resp := commnad_executor.move_to (a_session_id, l_json)

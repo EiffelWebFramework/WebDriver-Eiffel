@@ -477,7 +477,7 @@ feature
 			Result.replace_substring_all ("$sessionId", sessionId)
 		end
 
-	cmd_session_move_to_tmpl: STRING = "session/$sessionId/move_to"
+	cmd_session_move_to_tmpl: STRING = "session/$sessionId/moveto"
 
 	cmd_session_move_to (sessionId: STRING_32): STRING_32
 		do

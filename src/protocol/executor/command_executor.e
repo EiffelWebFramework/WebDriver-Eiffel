@@ -30,7 +30,8 @@ feature -- Initialization
 			host := a_host
 			create h.make
 			http_session := h.new_session (a_host)
-				--  http_session.set_timeout (5)
+			http_session.set_timeout (-1)
+			http_session.set_connect_timeout (-1)
 				--	http_session.set_is_debug (True)
 				--	http_session.set_proxy ("127.0.0.1", 8888)
 		end

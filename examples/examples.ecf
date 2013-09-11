@@ -54,7 +54,31 @@
 		<root class="FIND_ELEMENT_XPATH" feature="default_create"/>
 		<cluster name="src" location=".\" recursive="true"/>
 	</target>
+	<target name="exampleDrawCanvas" extends="selenium_example">
+		<root class="EXAMPLE_DRAW_ON_CANVAS" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
+		<target name="exampleDraggingAround" extends="selenium_example">
+		<root class="EXAMPLE_DRAGGING_ARROUND" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
+	
+	<target name="exampleDragAndDrop" extends="selenium_example">
+		<root class="EXAMPLE_DRAG_AND_DROP" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
+	
+	<target name="exampleSelectMultiple" extends="selenium_example">
+		<root class="EXAMPLE_SELECT_MULTIPLE" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
 
+	<target name="exampleSlider" extends="selenium_example">
+		<root class="EXAMPLE_SLIDER" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
+
+	
 	
 
 	

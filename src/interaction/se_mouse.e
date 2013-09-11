@@ -62,10 +62,12 @@ feature  -- Mouse Actions
 			end
 		end
 
-	mouse_move_by_params (a_coordinates: SE_COORDINATES; a_param1: INTEGER_64; a_param2: INTEGER_64)
+	mouse_move_by_params (a_coordinates: detachable SE_COORDINATES; a_param1: INTEGER_64; a_param2: INTEGER_64)
 		do
-			if attached driver.session as l_session and then attached a_coordinates.auxiliary as l_element then
+			if attached driver.session as l_session and then attached a_coordinates as l_coordinates and then attached l_coordinates.auxiliary as l_element then
 				driver.api.move_to (l_session.session_id,l_element,a_param1, a_param2)
+			elseif attached driver.session as l_session then
+				driver.api.move_to (l_session.session_id,Void,a_param1, a_param2)
 			end
 		end
 
