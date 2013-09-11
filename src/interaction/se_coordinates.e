@@ -16,12 +16,12 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_web_driver: like driver)
-			-- Create an object se_mouse with his driver
+	make (a_web_element: like element)
+			-- Create an object coordinet from an element
 		do
-			driver := a_web_driver
+			element := a_web_element
 		ensure
-			web_driver_set: driver = a_web_driver
+			element_set: element = a_web_element
 		end
 
 feature -- Access
@@ -36,29 +36,23 @@ feature -- Access
 			-- Gets coordinates on the element relative to the top-left corner of OS-window being used
 			-- to display the content. Usually it is the browser window's viewport.
 		do
-			if attached driver.active_element as l_element and then attached driver.session as l_session then
-				Result := driver.api.location_in_view (l_session.session_id, l_element.element)
-			end
+			Result := element.api.location_in_view (element.session_id, element.element)
 		end
 
 	on_page: detachable SE_POINT
 			-- Gets coordinates on the element relative to the top-left corner of the page.
 		do
-			if attached driver.active_element as l_element and then attached driver.session as l_session then
-				Result := driver.api.element_location (l_session.session_id, l_element.element)
-			end
+			Result := element.api.element_location (element.session_id, element.element)
 		end
 
 	auxiliary: detachable WEB_ELEMENT
 		do
-			if attached driver.active_element as l_element then
-				Result := l_element
-			end
+			Result := element
 		end
 
 feature -- {NONE} -- Implementations
 
-	driver: WEB_DRIVER
-			-- web_driver
+	element: WEB_ELEMENT
+			-- web_element
 
 end

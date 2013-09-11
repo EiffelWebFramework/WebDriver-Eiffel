@@ -6,9 +6,12 @@ note
 
 class
 	WEB_ELEMENT
+
 create
 		make
+
 feature {NONE} -- Implementations
+
 		make ( a_element : STRING_32 ; a_api : like api; a_session_id : STRING_32)
 			do
 				set_element (a_element)
@@ -127,7 +130,7 @@ feature -- Web Element API
 			api.element_submit (session_id, element)
 		end
 
-feature {NONE} -- Implementation
+feature {NONE, SE_COORDINATES} -- Implementation
 
 	api : SE_JSON_WIRE_PROTOCOL
 	session_id : STRING_32
