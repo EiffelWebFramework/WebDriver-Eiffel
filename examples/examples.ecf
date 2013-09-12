@@ -77,8 +77,13 @@
 		<root class="EXAMPLE_SLIDER" feature="default_create"/>
 		<cluster name="src" location=".\" recursive="true"/>
 	</target>
-
 	
+	<target name="exampleDoubleClick" extends="selenium_example">
+		<root class="EXAMPLE_DOUBLE_CLICK" feature="default_create"/>
+		<cluster name="src" location=".\" recursive="true"/>
+	</target>
+
+
 	
 
 	
