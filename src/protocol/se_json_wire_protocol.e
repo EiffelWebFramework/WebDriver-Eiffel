@@ -1395,8 +1395,8 @@ feature -- Commands
 				resp := commnad_executor.element_value (a_session_id, an_id, a_name)
 				check_response (resp)
 				if not has_error then
-					if attached resp.value as l_value then
-						Result := l_value
+					if attached {JSON_STRING} resp.value as l_value then
+						Result := l_value.item
 					end
 				end
 			end
@@ -1735,7 +1735,7 @@ feature -- Commands
 						}
 					]"
 			end
-				
+
 			if commnad_executor.is_available then
 				if attached a_web_element as l_web_element  then
 					l_json.replace_substring_all ("$element", l_web_element.element)

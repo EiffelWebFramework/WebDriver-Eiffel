@@ -356,7 +356,7 @@ feature
 
 	cmd_session_element_clear (sessionId: STRING_32; id: STRING_32): STRING_32
 		do
-			create Result.make_from_string (cmd_session_element_name_tmpl)
+			create Result.make_from_string (cmd_session_element_clear_tmpl)
 			Result.replace_substring_all ("$sessionId", sessionId)
 			Result.replace_substring_all ("$id", id)
 		end
