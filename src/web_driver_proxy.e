@@ -1,6 +1,5 @@
 note
 	description: "A JSON object describing a Proxy configuration."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

@@ -1,6 +1,5 @@
 note
 	description: "Double-clicks an element."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

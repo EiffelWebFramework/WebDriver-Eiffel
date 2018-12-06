@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_DIMENSION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

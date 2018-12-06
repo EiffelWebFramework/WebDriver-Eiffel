@@ -1,9 +1,9 @@
 note
 	description: "{COMMAND_EXECUTOR} object that execute a command in the JSONWireProtocol"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
-	EIS: "name=SELINIUM", "protocol=uri", "src=https://code.google.com/p/selenium/wiki/JsonWireProtocol#Commands"
+	EIS: "name=Deprecated SELINIUM", "protocol=uri", "src=https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol"
+	EIS: "name=SELINIUM", "protocol=uri", "src=https://w3c.github.io/webdriver/#commands"
 
 class
 	COMMAND_EXECUTOR
@@ -24,16 +24,10 @@ create
 feature -- Initialization
 
 	make (a_host: STRING_32)
-		local
-			h: LIBCURL_HTTP_CLIENT
+
 		do
 			host := a_host
-			create h.make
-			http_session := h.new_session (a_host)
-			http_session.set_timeout (-1)
-			http_session.set_connect_timeout (-1)
-				--	http_session.set_is_debug (True)
-				--	http_session.set_proxy ("127.0.0.1", 8888)
+			http_session := new_http_session_impl (a_host)
 		end
 
 feature -- Status Report
@@ -1068,9 +1062,32 @@ feature {NONE} -- Implementation
 			h: LIBCURL_HTTP_CLIENT
 		do
 			create h.make
-			Result := h.new_session (url)
+			Result := new_http_session_impl (url)
 				--		Result.set_is_debug (True)
 				--		Result.set_proxy ("127.0.0.1", 8888)
+		end
+
+
+
+feature {NONE} -- Implementaetion
+
+	new_http_session_impl (a_host: READABLE_STRING_8): HTTP_CLIENT_SESSION
+			-- create a new HTTP_CLIENT_SESSION
+		local
+			h: DEFAULT_HTTP_CLIENT
+		do
+			create h
+			Result := h.new_session (a_host)
+			Result.set_timeout (-1)
+			Result.set_connect_timeout (-1)
+			Result.set_is_insecure (True)
+			Result.set_any_auth_type
+				debug ("curl")
+					Result.set_is_debug (True)
+				end
+				debug ("proxy8888")
+					Result.set_proxy ("127.0.0.1", 8888) --| inspect traffic with http://www.fiddler2.com/					
+				end
 		end
 
 end

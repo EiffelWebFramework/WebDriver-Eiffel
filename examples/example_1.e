@@ -22,12 +22,12 @@ feature -- Access
 				if attached l_session as l_s then
 
 					-- navigate to www.google.com
-					web_driver.navigate_to_url (l_s.session_id, "http://www.google.com/")
+					web_driver.navigate_to_url (l_s.session_id, "https://www.google.com/")
 
 					-- Find the text input element by its name
 					if attached {WEB_ELEMENT} web_driver.search_element (l_s.session_id, (create {SE_BY}).name ("q")) as l_element then
 						-- search something
-						web_driver.send_event(l_s.session_id, l_element.element,<<"Eiffel Room">>)
+						web_driver.send_event(l_s.session_id, l_element.element,<<"Eiffel.org">>)
 
 						-- Submit Form
 						web_driver.element_submit (l_s.session_id, l_element.element)

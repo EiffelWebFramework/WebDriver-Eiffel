@@ -1,6 +1,5 @@
 note
 	description: "Objects that represent a Web Browser"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_RESPONSE_JSON_CONVERTER}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -25,49 +24,58 @@ feature -- Access
 
 feature -- Conversion
 
-	from_json (j: like to_json): detachable like object
+	from_json (a_json: detachable JSON_VALUE; ctx: JSON_DESERIALIZER_CONTEXT; a_type: detachable TYPE [detachable ANY]): detachable like object
+	--from_json (j: like to_json): detachable like object
 		do
 			create Result.make_empty
-			if attached {STRING_32} json_to_object (j.item (session_key), Void) as l_item then
-				Result.set_session_id(l_item)
+			if attached {JSON_OBJECT} a_json as j then
+				if attached {JSON_STRING} j.item (session_key) as l_session_id then
+					Result.set_session_id (l_session_id.unescaped_string_32)
+				end
+				if attached {JSON_NUMBER} j.item (status_key) as l_status then
+					Result.set_status (l_status.integer_64_item.to_integer_32)
+				end
+				if attached {JSON_VALUE}  j.item (value_key) as l_item then
+					Result.set_value(l_item.representation)
+				end
 			end
-			if attached {INTEGER_8} json_to_object (j.item (status_key), Void) as l_item then
-				Result.set_status(l_item)
-			end
-			if attached {JSON_VALUE}  j.item (value_key) as l_item then
-				Result.set_value(l_item.representation)
-			end
-
-
-
 		end
 
-	to_json (o: like object): JSON_OBJECT
+	to_json (obj: detachable ANY; ctx: JSON_SERIALIZER_CONTEXT): JSON_VALUE
+	--to_json (o: like object): JSON_OBJECT
+		local
+			jo: JSON_OBJECT
 		do
-			create Result.make
-			Result.put (json.value (o.session_id),session_key)
-			Result.put (json.value (o.status), status_key)
-			Result.put (json.value (o.value), value_key)
+			if attached {SE_RESPONSE} obj as o then
+				create jo.make
+				if attached o.session_id as l_session_id then
+					jo.put_string (l_session_id, session_key)
+				end
+				jo.put_integer (o.status, status_key)
+				if attached o.value as l_value then
+					jo.put_string (l_value, value_key)
+				end
+				Result := jo
+			else
+				 create {JSON_NULL} Result
+			end
 		end
 
 feature {NONE} -- Implementation
 
-
-
 	session_key: JSON_STRING
 		once
-			create Result.make_json ("sessionId")
+			create Result.make_from_string ("sessionId")
 		end
 
 	status_key: JSON_STRING
 		once
-			create Result.make_json ("status")
+			create Result.make_from_string ("status")
 		end
 
 	value_key: JSON_STRING
 		once
-			create Result.make_json ("value")
+			create Result.make_from_string ("value")
 		end
-
 
 end

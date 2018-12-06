@@ -1,6 +1,5 @@
 note
 	description: "Releases the left mouse button"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

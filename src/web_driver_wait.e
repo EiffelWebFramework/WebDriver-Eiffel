@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {WEB_DRIVER_WAIT}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

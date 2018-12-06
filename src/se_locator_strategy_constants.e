@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_LOCATOR_STRATEGY_CONSTANTS}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

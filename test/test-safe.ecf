@@ -7,7 +7,7 @@
 		</option>
 		<setting name="console_application" value="true"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
-		<library name="http_client" location="$EIFFEL_LIBRARY\EWF\library\network\http_client\http_client-safe.ecf"/>
+		<library name="http_client" location="$ISE_LIBRARY\contrib\library\network\http_client\http_client.ecf"/>
 		<library name="selenium" location="..\selenium-safe.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing.ecf"/>
 		<cluster name="test" location=".\" recursive="true">

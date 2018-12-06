@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_SCREEN_ORIENTATION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

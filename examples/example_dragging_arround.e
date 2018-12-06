@@ -22,7 +22,7 @@ feature  {NONE} -- Initialization
 
 	default_create
 		do
---			test_dragging_around
+			test_dragging_around
 			test_draggable
 		end
 

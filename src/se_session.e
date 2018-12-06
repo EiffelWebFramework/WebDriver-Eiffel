@@ -1,6 +1,5 @@
 note
 	description: "Object that represent an active session"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

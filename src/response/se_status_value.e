@@ -20,9 +20,10 @@ feature {NONE}-- Initialization
 
 	make_empty
 		do
-
 		end
+
 feature -- Access
+
 	os_value: detachable SE_OS_VALUE
 
 	java_value : detachable SE_JAVA_VALUE

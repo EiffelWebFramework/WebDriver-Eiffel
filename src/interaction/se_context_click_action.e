@@ -1,6 +1,5 @@
 note
 	description: "Context-clicks an element"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

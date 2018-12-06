@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_MOUSE_ACTION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -24,7 +23,7 @@ feature {NONE} --Initialization
 		ensure
 			mouse_set: mouse = a_mouse
 		end
-		
+
 	make_with_location (a_mouse: SE_MOUSE; a_coordinate: SE_COORDINATES)
 			-- Create a mouse action with `a_mouse' and `a_coordinates'
 		do

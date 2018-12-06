@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {ENUM}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

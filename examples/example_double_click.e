@@ -40,7 +40,7 @@ feature -- Test
 			web_driver.start_session_chrome
 
 				-- Go to Page under test
-			web_driver.to_url ("http://dl.dropbox.com/u/55228056/DoubleClickDemo.html")
+			web_driver.to_url ("http://cookbook.seleniumacademy.com/DoubleClickDemo.html")
 			create wait.make (web_driver,100)
 
 				-- Create a new instance of actions
@@ -49,16 +49,16 @@ feature -- Test
 				-- Find links
 			if attached {WEB_ELEMENT} web_driver.find_element ((create {SE_BY}).id("message")) as l_element  then
 
-				if attached l_element.get_css_value ("color")  as l_value then
+				if attached l_element.get_css_value ("background-color")  as l_value then
 --					check
---					 Expected_blue: l_value.same_string ("rgb(0, 0, 255)")
+--					 Expected_blue: l_value.same_string ("%"rgb(0, 0, 255,1)"%")
 --					end
 				end
 				actions.double_click (l_element).execute
 
-				if attached l_element.get_css_value ("background")  as l_value then
+				if attached l_element.get_css_value ("background-color")  as l_value then
 --					check
---					 Expected_yellow: l_value.same_string ("rgb(255, 255, 0)")
+--					 Expected_yellow: l_value.same_string ("%"rgb(255, 255, 0,1)"%")
 --					end
 				end
 			end

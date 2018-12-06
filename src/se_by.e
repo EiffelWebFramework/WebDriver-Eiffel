@@ -1,6 +1,5 @@
 note
 	description: "Objects used to locate elements within a document"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

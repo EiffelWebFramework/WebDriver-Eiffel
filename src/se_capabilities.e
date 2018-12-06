@@ -1,9 +1,8 @@
 note
 	description: "Object that describe available features a client can submit in a WebDriver session. Not all server implementations will support every WebDriver feature."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
-	EIS: "name=Capabilities", "protocl=http", "src=https://code.google.com/p/selenium/wiki/JsonWireProtocol#Desired_Capabilities"
+	EIS: "name=Desired Capabilitie ", "src=https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities", "protocol=uri"
 class
 	SE_CAPABILITIES
 

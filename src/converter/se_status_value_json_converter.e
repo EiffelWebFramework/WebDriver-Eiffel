@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_STATUS_VALUE_JSON_CONVERTER}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -25,27 +24,43 @@ feature -- Access
 
 feature -- Conversion
 
-	from_json (j: like to_json): detachable like object
+	from_json (a_json: detachable JSON_VALUE; ctx: JSON_DESERIALIZER_CONTEXT; a_type: detachable TYPE [detachable ANY]): detachable like object
+	--from_json (j: like to_json): detachable like object
 		do
-			create Result.make_empty
-			if attached {SE_OS_VALUE} json_to_object (j.item (os_key), {SE_OS_VALUE}) as l_item then
-				Result.set_os_value(l_item)
+			if attached {JSON_OBJECT} a_json as j then
+				create Result.make_empty
+				if attached {SE_OS_VALUE} ctx.value_from_json (j.item (os_key), {SE_OS_VALUE}) as c then
+					Result.set_os_value (c)
+				end
+				if attached {SE_JAVA_VALUE} ctx.value_from_json (j.item (java_key), {SE_OS_VALUE}) as c then
+					Result.set_java_value (c)
+				end
+				if attached {SE_BUILD_VALUE} ctx.value_from_json (j.item (build_key), {SE_OS_VALUE}) as c then
+					Result.set_build_value (c)
+				end
 			end
-			if attached {SE_JAVA_VALUE} json_to_object (j.item (java_key), {SE_JAVA_VALUE}) as l_item then
-				Result.set_java_value(l_item)
-			end
-			if attached {SE_BUILD_VALUE} json_to_object (j.item (build_key), {SE_BUILD_VALUE}) as l_item then
-				Result.set_build_value(l_item)
-			end
-
 		end
 
-	to_json (o: like object): JSON_OBJECT
+	to_json (obj: detachable ANY; ctx: JSON_SERIALIZER_CONTEXT): JSON_VALUE
+	--to_json (o: like object): JSON_OBJECT
+		local
+			jo: JSON_OBJECT
 		do
-			create Result.make
-			Result.put (json.value (o.os_value), os_key)
-			Result.put (json.value (o.java_value), java_key)
-			Result.put (json.value (o.build_value), build_key)
+			if attached {SE_STATUS_VALUE} obj as o then
+				create jo.make_with_capacity (3)
+				if attached o.os_value as l_val then
+					jo.put (ctx.to_json (l_val, create {SE_OS_VALUE_JSON_CONVERTER}.make), os_key)
+				end
+				if attached o.java_value as l_val then
+					jo.put (ctx.to_json (l_val, create {SE_JAVA_VALUE_JSON_CONVERTER}.make), java_key)
+				end
+				if attached o.build_value as l_val then
+					jo.put (ctx.to_json (l_val, create {SE_BUILD_VALUE_JSON_CONVERTER}.make), build_key)
+				end
+				Result := jo
+			else
+				create {JSON_NULL} Result
+			end
 		end
 
 feature {NONE} -- Implementation
@@ -54,17 +69,17 @@ feature {NONE} -- Implementation
 
 	os_key: JSON_STRING
 		once
-			create Result.make_json ("os")
+			create Result.make_from_string ("os")
 		end
 
 	java_key: JSON_STRING
 		once
-			create Result.make_json ("java")
+			create Result.make_from_string ("java")
 		end
 
 	build_key: JSON_STRING
 		once
-			create Result.make_json ("build")
+			create Result.make_from_string ("build")
 		end
 
 end

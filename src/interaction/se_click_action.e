@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_CLICK_ACTION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

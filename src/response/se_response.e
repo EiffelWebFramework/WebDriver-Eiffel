@@ -1,9 +1,9 @@
 note
 	description: "Object that represent Command responses from Seleniun JSONWireProtocol"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
-	EIS: "name=SELINIUM", "protocol=JsonWireProtocol", "src=https://code.google.com/p/selenium/wiki/JsonWireProtocol#Responses"
+	EIS: "name=Obsolete Selenium", "src=https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#responses", "protocol=uri"
+	EIS: "name=New Spec Selenium", "src=https://w3c.github.io/webdriver/#errors", "protocol=uri"
 
 class
 	SE_RESPONSE
@@ -13,6 +13,7 @@ create
 	make_empty
 
 feature -- Initialization
+
 	make (a_session_id : STRING_32; a_status: INTEGER_32; a_value : STRING_32)
 		do
 			session_id := a_session_id
@@ -22,9 +23,10 @@ feature -- Initialization
 
 	make_empty
 		do
-
 		end
+
 feature -- Access
+
 	session_id : detachable STRING_32
 		-- An opaque handle used by the server to determine where to route session-specific commands.
 		-- This ID should be included in all future session-commands in place of the :sessionId path segment variable.
@@ -36,6 +38,7 @@ feature -- Access
 		-- The response JSON value.
 
 feature -- Change Element
+
 	set_session_id ( a_session_id : STRING_32)
 		do
 			session_id := a_session_id

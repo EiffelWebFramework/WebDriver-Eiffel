@@ -1,12 +1,14 @@
 note
 	description: "Summary description for {SE_JSON_WIRE_PROTOCOL_COMMANDS}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
 	SE_JSON_WIRE_PROTOCOL_COMMANDS
 
+    -- TODO Check endpoints:
+    -- https://w3c.github.io/webdriver/#endpoints
+    
 feature
 
 	cmd_ping: STRING = ""

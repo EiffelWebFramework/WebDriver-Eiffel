@@ -1,6 +1,5 @@
 note
 	description: "Objects representing basic keyboards operations"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
