@@ -35,7 +35,7 @@ feature {NONE} -- Events
 			-- <Precursor>
 		do
 			if attached session_id as l_session_id then
-				wire_protocol.delete_session (session_id)
+				wire_protocol.delete_session (l_session_id)
 			end
 		end
 
@@ -88,9 +88,10 @@ feature -- Test routines
 			sessions: detachable LIST [SE_SESSION]
 		do
 				-- By default no sessions
-			sessions := wire_protocol.sessions
-			assert ("Not void", sessions /= Void)
-			assert ("greater than 0", sessions.count >= 0)
+			if attached wire_protocol.sessions as l_sessions then
+				assert ("Not void", l_sessions /= Void)
+				assert ("greater than 0", l_sessions.count >= 0)
+			end
 		end
 
 	test_retrieve_session_with_capabilities
@@ -103,9 +104,10 @@ feature -- Test routines
 			if attached wire_protocol.create_session_with_desired_capabilities (capabilities) as l_session then
 				assert ("No error", not wire_protocol.has_error)
 			end
-			sessions := wire_protocol.sessions
-			assert ("Not void", sessions /= Void)
-			assert ("greater than 0", sessions.count >= 0)
+			if attached wire_protocol.sessions as l_sessions  then
+				assert ("Not void", l_sessions /= Void)
+				assert ("greater than 0", l_sessions.count >= 0)
+			end
 		end
 
 	test_delete_session
@@ -228,7 +230,7 @@ feature -- Test routines
 			capabilities.set_browser_name ("chrome")
 			if attached wire_protocol.create_session_with_desired_capabilities (capabilities) as l_session then
 				assert ("No error", not wire_protocol.has_error)
-				url := wire_protocol.retrieve_url (session_id)
+				url := wire_protocol.retrieve_url (l_session.session_id)
 				assert ("Has no error", not wire_protocol.has_error)
 				assert ("url not void", attached url = True)
 			end
@@ -242,9 +244,9 @@ feature -- Test routines
 			capabilities.set_browser_name ("chrome")
 			if attached wire_protocol.create_session_with_desired_capabilities (capabilities) as l_session then
 				assert ("No error", not wire_protocol.has_error)
-				wire_protocol.navigate_to_url (session_id, "https://www.google.com")
+				wire_protocol.navigate_to_url (l_session.session_id, "https://www.google.com")
 				assert ("Has no error", not wire_protocol.has_error)
-				if attached wire_protocol.retrieve_url (session_id) as l_url then
+				if attached wire_protocol.retrieve_url (l_session.session_id) as l_url then
 					assert("Expected url", l_url.same_string_general ("%"https://www.google.com/%""))
 				end
 			end

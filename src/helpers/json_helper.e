@@ -126,21 +126,6 @@ feature -- Access
 			Result.register (create {SE_TIMEOUT_TYPE_JSON_CONVERTER}.make, {SE_TIMEOUT_TYPE})
 		end
 
-
---	initialize_converters (j: like json)
---			-- Initialize json converters
---		do
---			j.add_converter (create {SE_STATUS_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_BUILD_VALUE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_JAVA_VALUE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_OS_VALUE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_STATUS_VALUE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_CAPABILITIES_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_RESPONSE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_TIMEOUT_TYPE_JSON_CONVERTER}.make)
---			j.add_converter (create {SE_COOKIE_JSON_CONVERTER}.make)
---		end
-
 	to_json_value (a_obj: detachable ANY): JSON_VALUE
 			-- Convert an object `a_obj' to JSON_VALUE representation.
 		local

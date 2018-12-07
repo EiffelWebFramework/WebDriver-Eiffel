@@ -202,14 +202,14 @@ feature -- Navigation
 feature -- Options
 	-- Stuff you would do in a browser menu
 
-	add_cookie (cookie: SE_COOKIE)
-			-- Set a cookie. If the cookie path is not specified, it should be set to "/".
+	add_cookie (a_cookie: SE_COOKIE)
+			-- Set a cookie `a_cookie'. If the cookie path is not specified, it should be set to "/".
 			-- Likewise, if the domain is omitted, it should default to the current page's domain.
 		require
 			exist_session: is_session_active
 		do
 			if attached session as l_session then
-				api.set_cookie (l_session.session_id, cookie)
+				api.set_cookie (l_session.session_id, a_cookie)
 			end
 		end
 
@@ -223,13 +223,13 @@ feature -- Options
 			end
 		end
 
-	delete_cookie (cookie: SE_COOKIE)
-			-- Delete the cookie with the given name.
+	delete_cookie (a_cookie: SE_COOKIE)
+			-- Delete the cookie  `a_cookie' with the given name.
 			-- This command should be a no-op if there is no such cookie visible to the current page.
 		require
 			exist_session: is_session_active
 		do
-			if attached session as l_session and then attached cookie.name as l_name then
+			if attached session as l_session and then attached a_cookie.name as l_name then
 				api.delete_cookie_by_name (l_session.session_id, l_name)
 			end
 		end
@@ -244,26 +244,27 @@ feature -- Options
 			end
 		end
 
-	get_cookie (name: STRING_32): detachable SE_COOKIE
+	cookie, get_cookie (name: STRING_32): detachable SE_COOKIE
 			-- Get a cookie with a given name
 		require
 			exist_session: is_session_active
 		local
 			found: BOOLEAN
 		do
-			if attached session as l_session then
-				if attached api.retrieve_cookies (l_session.session_id) as l_list then
-					from
-						l_list.start
-					until
-						l_list.after or found
-					loop
-						if attached l_list.item.name as l_name and then l_name.is_case_insensitive_equal (name) then
-							found := true
-							Result := l_list.item
-						end
-						l_list.forth
+			if
+				attached session as l_session and then
+				attached api.retrieve_cookies (l_session.session_id) as l_list
+			then
+				from
+					l_list.start
+				until
+					l_list.after or found
+				loop
+					if attached l_list.item.name as l_name and then l_name.is_case_insensitive_equal (name) then
+						found := true
+						Result := l_list.item
 					end
+					l_list.forth
 				end
 			end
 		end

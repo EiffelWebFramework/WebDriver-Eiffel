@@ -60,10 +60,8 @@ feature -- Commands
 			if commnad_executor.is_available then
 				response := commnad_executor.status
 				check_response (response)
-				if not has_error then
-					if attached response.json_response as l_response then
-						Result := json_to_se_status (l_response)
-					end
+				if not has_error and then attached response.json_response as l_response then
+					Result := json_to_se_status (l_response)
 				end
 			end
 		end
@@ -91,10 +89,8 @@ feature -- Commands
 				if attached to_json (capabilities) as l_json then
 					response := commnad_executor.new_session (desired_capabilities (l_json.representation))
 					check_response (response)
-					if not has_error then
-						if attached response.json_response as r_value then
-							Result := new_session (r_value, "session")
-						end
+					if not has_error and then attached response.json_response as r_value then
+						Result := new_session (r_value, "session")
 					end
 				end
 			end

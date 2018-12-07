@@ -5,7 +5,9 @@ note
 
 class
 	SE_TIMEOUT_TYPE_JSON_CONVERTER
+
 inherit
+
 	SE_JSON_CONVERTER
 
 create
@@ -25,7 +27,6 @@ feature -- Access
 feature -- Conversion
 
 	from_json (a_json: detachable JSON_VALUE; ctx: JSON_DESERIALIZER_CONTEXT; a_type: detachable TYPE [detachable ANY]): detachable like object
-	--from_json (j: like to_json): detachable like object
 		do
 			if attached {JSON_OBJECT} a_json as j then
 				create Result.make_empty
@@ -39,7 +40,6 @@ feature -- Conversion
 		end
 
 	to_json (obj: detachable ANY; ctx: JSON_SERIALIZER_CONTEXT): JSON_VALUE
-	--to_json (o: like object): JSON_OBJECT
 		local
 			jo: JSON_OBJECT
 		do
@@ -56,7 +56,6 @@ feature -- Conversion
 		end
 
 feature {NONE} -- Implementation
-
 
 	type_key: JSON_STRING
 		once

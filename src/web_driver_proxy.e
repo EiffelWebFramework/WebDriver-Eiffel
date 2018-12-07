@@ -9,10 +9,12 @@ create
 	make
 
 feature -- Initialization
+
 	make (a_proxy_type : STRING_32)
 		do
 			set_proxy_type(a_proxy_type)
 		end
+
 feature -- Access
 
 	proxy_type:	STRING_32
@@ -39,6 +41,7 @@ feature -- Access
 
 
 feature -- Element Change
+
 	set_proxy_type (a_proxy_type : STRING_32)
 		do
 			proxy_type := a_proxy_type
