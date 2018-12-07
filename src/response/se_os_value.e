@@ -1,6 +1,5 @@
 note
 	description: "Object that describe the OS information from the current server"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -22,10 +21,10 @@ feature{NONE} -- Initialization
 
 	make_empty
 		do
-
 		end
 
 feature -- Access
+
 	architecture : detachable STRING_32
 		-- The current system architecture.
 
@@ -36,6 +35,7 @@ feature -- Access
 		--The operating system version.
 
 feature -- Change Element
+
 	set_version (a_version : STRING_32)
 		-- Set version with `a_version'
 		do
@@ -44,7 +44,6 @@ feature -- Change Element
 			version_assigned : version ~  a_version
 		end
 
-
 	set_name (a_name : STRING_32)
 		-- Set name with `a_name'
 		do
@@ -52,7 +51,6 @@ feature -- Change Element
 		ensure
 			name_assigned : name ~  a_name
 		end
-
 
 	set_architecture (an_architecture : STRING_32)
 		-- Set architecture with `an_architecture'

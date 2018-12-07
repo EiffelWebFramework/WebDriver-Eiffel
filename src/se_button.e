@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_BUTTON}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -75,20 +74,20 @@ feature -- Query
 	is_left : BOOLEAN
 			-- is the current value left?
 		do
-			Result := (value = left_value)
+			Result := value = left_value
 		end
 
 	is_middle  : BOOLEAN
 		-- is the current value middle?
 		do
-			Result := (value = middle_value)
+			Result := value = middle_value
 		end
 
 
 	is_right  : BOOLEAN
 		-- is the current value right?
 		do
-			Result := (value = right_value)
+			Result := value = right_value
 		end
 
 

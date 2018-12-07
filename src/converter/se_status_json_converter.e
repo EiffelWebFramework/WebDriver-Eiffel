@@ -1,6 +1,5 @@
 note
 	description: "A converter for SE_STATUS"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -8,6 +7,7 @@ class
 	SE_STATUS_JSON_CONVERTER
 
 inherit
+
 	SE_JSON_CONVERTER
 
 create
@@ -26,73 +26,90 @@ feature -- Access
 
 feature -- Conversion
 
-	from_json (j: like to_json): detachable like object
+	from_json (a_json: detachable JSON_VALUE; ctx: JSON_DESERIALIZER_CONTEXT; a_type: detachable TYPE [detachable ANY]): detachable like object
 		do
-			create Result
-			if attached {INTEGER_32} json_to_object (j.item (status_key), Void) as l_ucs then
-				Result.set_status (l_ucs)
-			end
-			if attached {STRING_32} json_to_object (j.item (session_id_key), Void) as l_ucs then
-				Result.set_session_id (l_ucs)
-			end
-			if attached {STRING_32} json_to_object (j.item (state_key), Void) as l_ucs then
-				Result.set_state (l_ucs)
-			end
-			if attached {STRING_32} json_to_object (j.item (class_name_key), Void) as l_ucs then
-				Result.set_class_name (l_ucs)
-			end
-			if attached {INTEGER_32} json_to_object (j.item (hash_code_key), Void) as l_ucs then
-				Result.set_hash_code (l_ucs.out)
-			end
-			if attached {SE_STATUS_VALUE} json_to_object (j.item (value_key), {SE_STATUS_VALUE}) as lv then
-				Result.set_value(lv)
+			if attached {JSON_OBJECT} a_json as j then
+				create Result
+				if attached {JSON_NUMBER} j.item (status_key) as l_status_key then
+					Result.set_status (l_status_key.integer_64_item.to_integer_32)
+				end
+				if attached {JSON_STRING} j.item (session_id_key) as l_ucs then
+					Result.set_session_id (l_ucs.unescaped_string_32)
+				end
+				if attached {JSON_STRING} j.item (state_key) as l_ucs then
+					Result.set_state (l_ucs.unescaped_string_32)
+				end
+				if attached {JSON_STRING} j.item (class_name_key) as l_ucs then
+					Result.set_class_name (l_ucs.unescaped_string_32)
+				end
+				if attached {JSON_NUMBER} j.item (status_key) as l_status_key then
+					Result.set_hash_code (l_status_key.representation)
+				end
+				if attached {SE_STATUS_VALUE} ctx.value_from_json (j.item (value_key), {SE_STATUS_VALUE}) as c then
+					Result.set_value (c)
+				end
 			end
 		end
 
-	to_json (o: like object): JSON_OBJECT
+	to_json (obj: detachable ANY; ctx: JSON_SERIALIZER_CONTEXT): JSON_VALUE
+		local
+			jo: JSON_OBJECT
 		do
-			create Result.make
-			Result.put (json.value (o.status), status_key)
-			Result.put (json.value (o.session_id), session_id_key)
-			Result.put (json.value (o.value), value_key)
-			Result.put (json.value (o.state), state_key)
-			Result.put (json.value (o.class_name), class_name_key)
-			Result.put (json.value (o.hash_code), hash_code_key)
+			if attached {SE_STATUS} obj as o then
+			 	create jo.make
+			   	jo.put_integer (o.status, status_key)
+			   	if attached o.session_id as s_id then
+			  		jo.put_string (s_id, session_id_key)
+			   	end
+			   	if attached o.state as l_state then
+					jo.put_string (l_state, state_key)
+			   	end
+			   	if attached o.class_name as l_class_name then
+			   		jo.put_string (l_class_name, class_name_key)
+			   	end
+			   	if attached o.hash_code as l_hash_code then
+			   		jo.put_string (l_hash_code, hash_code_key)
+			   	end
+				if attached o.value as l_value then
+					jo.put (ctx.to_json (l_value, create {SE_STATUS_VALUE_JSON_CONVERTER}.make), value_key)
+				end
+				Result := jo
+		     else
+		        create {JSON_NULL} Result
+		     end
 		end
 
 feature {NONE} -- Implementation
 
 
-
-
 	status_key: JSON_STRING
 		once
-			create Result.make_json ("status")
+			create Result.make_from_string ("status")
 		end
 
 	session_id_key: JSON_STRING
 		once
-			create Result.make_json ("sessionId")
+			create Result.make_from_string ("sessionId")
 		end
 
 	value_key: JSON_STRING
 		once
-			create Result.make_json ("value")
+			create Result.make_from_string ("value")
 		end
 
 	state_key: JSON_STRING
 		once
-			create Result.make_json ("state")
+			create Result.make_from_string ("state")
 		end
 
 	class_name_key: JSON_STRING
 		once
-			create Result.make_json ("class")
+			create Result.make_from_string ("class")
 		end
 
 	hash_code_key : JSON_STRING
 		once
-			create Result.make_json ("hCode")
+			create Result.make_from_string ("hCode")
 		end
 
 note

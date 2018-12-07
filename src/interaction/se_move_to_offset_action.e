@@ -3,7 +3,6 @@ note
 				Move the mouse to a location within the element provided. The coordinates provided specify the
  				offset from the top-left corner of the element.
 					]"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

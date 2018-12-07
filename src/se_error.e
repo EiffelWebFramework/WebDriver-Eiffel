@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_ERROR}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

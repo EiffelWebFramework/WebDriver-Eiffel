@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_TIMEOUT_TYPE}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

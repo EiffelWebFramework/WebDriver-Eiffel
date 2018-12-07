@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_SINGLE_KEY_ACTION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

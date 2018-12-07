@@ -1,6 +1,5 @@
 note
 	description: "Object that describe the build information from the current server"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

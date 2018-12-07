@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_KEY_STROKE}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

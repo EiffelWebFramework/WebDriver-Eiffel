@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_KEY_CONSTANTS}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

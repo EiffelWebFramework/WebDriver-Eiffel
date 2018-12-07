@@ -29,8 +29,6 @@ feature {NONE} -- Initialization
 		local
 			web_driver: SE_JSON_WIRE_PROTOCOL
 			capabilities: SE_CAPABILITIES
-			timeout: SE_TIMEOUT_TYPE
-
 		do
 			-- check if the selenium Remote WebDriver is up and running.
 			create web_driver.make
@@ -186,7 +184,7 @@ feature {NONE} -- Initialization
 				end
 		end
 
-		
+
 	test_session
 		local
 			h: LIBCURL_HTTP_CLIENT

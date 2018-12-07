@@ -1,6 +1,5 @@
 note
 	description: "Object that allows to build a complex chain of events"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

@@ -1,6 +1,5 @@
 note
 	description: "Object describing a log entry"
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 

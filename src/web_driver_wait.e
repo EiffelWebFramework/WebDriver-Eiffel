@@ -1,16 +1,20 @@
 note
 	description: "Summary description for {WEB_DRIVER_WAIT}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
 	WEB_DRIVER_WAIT
+
 inherit
+
 	SHARED_EXECUTION_ENVIRONMENT
+
 create
 	make
+
 feature {NONE} -- Initialization
+
 	make ( driver : like web_driver; a_duration : INTEGER_64)
 		do
 			web_driver := driver
@@ -22,8 +26,9 @@ feature {NONE} -- Initialization
 		end
 
 feature -- Access
+
 	-- create another feature to accept a predicate
-	until_when (condition : PREDICATE[ANY, TUPLE])
+	until_when (condition : PREDICATE [TUPLE])
 		--Evaluate the condition until it's true or timing out .
 		local
 			found : BOOLEAN
@@ -36,7 +41,7 @@ feature -- Access
 
 			from
 				create l_time2.make_now
-				if condition.item([]) then
+				if condition.item() then
 					found := True
 				end
 			until
@@ -51,7 +56,10 @@ feature -- Access
 		end
 
 feature  {NONE}-- Implementation
+
 	web_driver : WEB_DRIVER
+
+
 	duration : INTEGER_64
 
 	initialize

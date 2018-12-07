@@ -1,12 +1,13 @@
 note
 	description: "Summary description for {SE_TIMEOUT_TYPE_JSON_CONVERTER}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
 	SE_TIMEOUT_TYPE_JSON_CONVERTER
+
 inherit
+
 	SE_JSON_CONVERTER
 
 create
@@ -22,38 +23,48 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	object: SE_TIMEOUT_TYPE
-	
+
 feature -- Conversion
 
-	from_json (j: like to_json): detachable like object
+	from_json (a_json: detachable JSON_VALUE; ctx: JSON_DESERIALIZER_CONTEXT; a_type: detachable TYPE [detachable ANY]): detachable like object
 		do
-			create Result.make_empty
-			if attached {STRING_32} json_to_object (j.item (type_key), Void) as l_item then
-				Result.set_type(l_item)
-			end
-			if attached {INTEGER_32} json_to_object (j.item (ms_key), Void) as l_item then
-				Result.set_ms (l_item)
+			if attached {JSON_OBJECT} a_json as j then
+				create Result.make_empty
+				if attached {JSON_STRING} j.item (type_key) as l_item then
+					Result.set_type (l_item.unescaped_string_32)
+				end
+				if attached {JSON_NUMBER}  j.item (ms_key) as l_item  then
+					Result.set_ms (l_item.integer_64_item.to_integer_32)
+				end
 			end
 		end
 
-	to_json (o: like object): JSON_OBJECT
+	to_json (obj: detachable ANY; ctx: JSON_SERIALIZER_CONTEXT): JSON_VALUE
+		local
+			jo: JSON_OBJECT
 		do
-			create Result.make
-			Result.put (json.value (o.type),type_key)
-			Result.put (json.value (o.ms), ms_key)
+			if attached {SE_TIMEOUT_TYPE} obj as o then
+				create jo.make_with_capacity (2)
+				if attached o.type as l_type then
+					jo.put_string (l_type, type_key)
+				end
+				jo.put_integer (o.ms, ms_key)
+				Result := jo
+			else
+				create {JSON_NULL} Result
+			end
 		end
 
 feature {NONE} -- Implementation
 
-
 	type_key: JSON_STRING
 		once
-			create Result.make_json ("type")
+			create Result.make_from_string ("type")
 		end
 
 	ms_key: JSON_STRING
 		once
-			create Result.make_json ("ms")
+			create Result.make_from_string ("ms")
 		end
 
 

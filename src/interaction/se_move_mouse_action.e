@@ -1,11 +1,11 @@
 note
 	description: "Moves the mouse to an element."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
 	SE_MOVE_MOUSE_ACTION
+
 inherit
 
 	SE_MOUSE_ACTION

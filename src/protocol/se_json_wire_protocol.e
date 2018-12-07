@@ -1,9 +1,12 @@
 note
-	description: "Summary description for {SE_JSON_WIRE_PROTOCOL}."
-	author: ""
+	description: "[
+		Object Representing the JsonWireProtocol
+	]"
 	date: "$Date$"
 	revision: "$Revision$"
-	EIS: "name=SELINIUM", "protocol=selenium", "src=https://code.google.com/p/selenium/wiki/JsonWireProtocol"
+	EIS: "name=Obsolete Selenium JsonWireProtocol", "src=https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol", "protocol=uri"
+	EIS: "name=New Selenium WebDriver", "src=https://w3c.github.io/webdriver/", "protocol=uri"
+
 
 class
 	SE_JSON_WIRE_PROTOCOL
@@ -20,21 +23,15 @@ create
 feature -- Initialization
 
 	make
-			--
-		local
-			h: LIBCURL_HTTP_CLIENT
+			-- Create JSON Wire Protocol
 		do
-			create h.make
 			host := "http://127.0.0.1:4444/wd/hub/"
 			initialize_executor
 		end
 
 	make_with_host (a_host: STRING_32)
-			--
-		local
-			h: LIBCURL_HTTP_CLIENT
+			-- Create a JSON Wire Protocol with host `a_host'.
 		do
-			create h.make
 			host := a_host
 			initialize_executor
 		end
@@ -63,10 +60,8 @@ feature -- Commands
 			if commnad_executor.is_available then
 				response := commnad_executor.status
 				check_response (response)
-				if not has_error then
-					if attached response.json_response as l_response then
-						Result := json_to_se_status (l_response)
-					end
+				if not has_error and then attached response.json_response as l_response then
+					Result := json_to_se_status (l_response)
 				end
 			end
 		end
@@ -94,10 +89,8 @@ feature -- Commands
 				if attached to_json (capabilities) as l_json then
 					response := commnad_executor.new_session (desired_capabilities (l_json.representation))
 					check_response (response)
-					if not has_error then
-						if attached response.json_response as r_value then
-							Result := new_session (r_value, "session")
-						end
+					if not has_error and then attached response.json_response as r_value then
+						Result := new_session (r_value, "session")
 					end
 				end
 			end
@@ -306,7 +299,7 @@ feature -- Commands
 			if commnad_executor.is_available then
 				resp := commnad_executor.retrieve_url (a_session_id)
 				check_response (resp)
-				if has_error then
+				if not has_error then
 					if attached resp.value as l_value then
 						Result := l_value
 					end
@@ -1249,7 +1242,7 @@ feature -- Commands
 				{"value":$array}
 			]"
 			if commnad_executor.is_available then
-				if attached json.value (create {ARRAYED_LIST [STRING_32]}.make_from_array (events)) as l_array then
+				if attached to_json_value (create {ARRAYED_LIST [STRING_32]}.make_from_array (events)) as l_array then
 					l_json.replace_substring_all ("$array", l_array.representation)
 					resp := commnad_executor.send_events (a_session_id, an_id, l_json)
 					check_response (resp)
@@ -1274,7 +1267,7 @@ feature -- Commands
 				{"value":$array}
 			]"
 			if commnad_executor.is_available then
-				if attached json.value (create {ARRAYED_LIST [STRING_32]}.make_from_array (keys)) as l_array then
+				if attached to_json_value (create {ARRAYED_LIST [STRING_32]}.make_from_array (keys)) as l_array then
 					l_json.replace_substring_all ("$array", l_array.representation)
 					resp := commnad_executor.send_key_strokes (a_session_id, l_json)
 					check_response (resp)

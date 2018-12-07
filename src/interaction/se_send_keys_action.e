@@ -1,6 +1,5 @@
 note
 	description: "Summary description for {SE_SEND_KEYS_ACTION}."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -29,7 +28,6 @@ feature {NONE} -- Implementation
 			mouse_set: mouse = a_mouse
 			keys_set: keys = a_keys
 		end
-
 
 	make_with_location (a_keyboard: SE_KEYBOARD; a_mouse: SE_MOUSE; a_coordinate: SE_COORDINATES; a_keys: ARRAY[STRING_32])
 		do

@@ -1,6 +1,5 @@
 note
 	description: "Presses the left mouse button without releasing it."
-	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
