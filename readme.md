@@ -5,7 +5,7 @@ Eiffel Selenium binding
 Selenium will help you test your web applications effectively and efficiently against a vast number of browsers and platforms.
 This client is a binding for the REST API interface defined in the WebDriver protocol https://w3c.github.io/webdriver/ based on the obsolete speficiation http://code.google.com/p/selenium/wiki/JsonWireProtocol.
 
-[https://docs.google.com/spreadsheets/d/1OnFjskB_wf9apjsX35an3fpwrjO_0C_xoVFkF2tVMdw/edit?usp=sharing Comparison of the JSONWireProtocol and WebDriver API commands], done by toff tillman
+[Comparison of the JSONWireProtocol and WebDriver API commands](https://docs.google.com/spreadsheets/d/1OnFjskB_wf9apjsX35an3fpwrjO_0C_xoVFkF2tVMdw/edit?usp=sharing) done by Toff Tillman
 
 WARNING this API is still under development, and maybe it will change
 
